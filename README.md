@@ -29,13 +29,28 @@ are required before you can start.
   [relational databases](http://en.wikipedia.org/wiki/Relational\_database)
   might prove useful.
 
-### Things to know about SeisHub
+### Things to Know About SeisHub
 
 
-SeisHub is an XML database meaning that it, as a fundamental unit, stores XML
-documents. For you this means that your data has to be available in XML. This
-is feasible in most cases. Later on we will also learn how to deal with binary
-data, e.g.  images, large binary time series in a custom format, ...
+[SeisHub](http://github.com/barsch/seishub.core) is a XML database meaning
+that it, as a fundamental unit, stores XML documents. For you this means that
+your data has to be available in XML. This is feasible in most cases. Later on
+we will also learn how to deal with binary data, e.g.  images, large binary
+time series in a custom format, ...
+
+#### Terminology
+
+ * **Package:** A component to structure stored files into categories. A
+     SeisHub plug-in can define one or more packages. Every package can store
+     resources of one or more different resource types.
+ * **Document:** An actual XML document.
+ * **Resource:** A logical XML document with an associated resource type. One
+     resource can have multiple revisions, each a seperate document.
+ * **Resource Type:** Every resource needs to have a type, called a resource
+     type.
+ * **Mapper:** A mapper (in a SeisHub plug-in) is a Python function that is
+     called everytime a specified URL is requested. Enables completely
+     customized SeisHub behaviour.
 
 ### Designing the Plug-in
 
@@ -81,17 +96,17 @@ way Python modules work. The `__init__.py` files are also necessary so don't
 delete them.
 
 ```
-seishub.plugins.template_tutorial <- Rename this folder to "seishub.plugins.simpleEvents"
+seishub.plugins.template_tutorial     <- Rename this folder to "seishub.plugins.simpleEvents"
 ├── README.md
 ├── seishub
 │   ├── __init__.py
 │   └── plugins
 │       ├── __init__.py
-│       └── template_tutorial     <- Rename this folder to "simpleEvents"
+│       └── template_tutorial         <- Rename this folder to "simpleEvents"
 │           ├── __init__.py
-│           ├── LICENSE.txt       <- Make sure the license suits your purpose.
-│           └── package.py        <- Currently the only file of the actual plugin.
-└── setup.py                      <- Installation script
+│           ├── LICENSE.txt           <- Make sure the license suits your purpose.
+│           └── package.py            <- Currently the only file of the actual plugin.
+└── setup.py                          <- Installation script
 ```
 
 Right now the plug-in is called `seishub.plugins.template_tutorial` which is of
