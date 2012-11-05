@@ -1,10 +1,10 @@
-# Template for new SeisHub plugins
+# Template for new SeisHub Plug-ins
 
 This repository contains a very simple but working SeisHub plug-in intended as a
 template for new SeisHub plug-ins. It is also a means of documenting how to
 extend SeisHub with your own functionality.
 
-## Tutorial for a new SeisHub plugin
+## Tutorial for a new SeisHub Plug-in
 
 This short tutorial will walk you through the steps of creating a simple
 SeisHub plug-in. In the course of the tutorial we will develop a simple plug-in
@@ -12,8 +12,8 @@ to store seismic events.
 
 ### Prerequisites
 
-Developing a plugin for SeisHub is not particularly difficult but some skill
-are needed before you can start.
+Developing a plug-in for SeisHub is not particularly difficult but some skill
+are required before you can start.
 
 * SeisHub is written in [Python](http://www.python.org/) (Version 2.6 and 2.7
   should work) so at least a limited knowledge of Python is required. But don't
@@ -21,7 +21,7 @@ are needed before you can start.
   resource available online, e.g. [Learn Python The Hard Way](http://learnpythonthehardway.org/book/),
   [Dive Into Python](http://www.diveintopython.net/),
   [The official Python tutorial](http://docs.python.org/2/tutorial/index.html), ...
-* SeisHub does store data as [XML](http://en.wikipedia.org/wiki/Xml) files.
+* SeisHub stores all data as [XML](http://en.wikipedia.org/wiki/Xml) files.
   Some familiarity with it and the related technologies
   [XSD](http://en.wikipedia.org/wiki/Xsd) and
   [XSLT](http://en.wikipedia.org/wiki/Xslt) is also advisable.
@@ -32,19 +32,19 @@ are needed before you can start.
 ### Things to know about SeisHub
 
 
-SeisHub is an XML database meaning that, as a fundamental unit, it stores XML
+SeisHub is an XML database meaning that it, as a fundamental unit, stores XML
 documents. For you this means that your data has to be available in XML. This
-is feasible in most case. Later on we will also learn how to deal with binary
+is feasible in most cases. Later on we will also learn how to deal with binary
 data, e.g.  images, large binary time series in a custom format, ...
 
-### Designing our plugin
+### Designing the Plug-in
 
-Let's say we have a large collection of seismic events and want to store them
-in SeisHub. First we need to define the structure of the XML date that we want
-to store. In this case we only want to store the most basic information about
-an event. (*Please note that this only serves to demonstrate SeisHub. If you
-really want to store event data you are better off using the standardized
-[QuakeML](https://quake.ethz.ch/quakeml/Documents) format.*) Our simple XML
+Let's assume you have a large collection of seismic events and want to store
+them in SeisHub. First we need to define the structure of the XML files that we
+want to store. In this case we only want to store the most basic information
+about an event. ( *Please note that this only serves to demonstrate SeisHub. If
+you really want to store event data you are better off using the standardized
+[QuakeML](https://quake.ethz.ch/quakeml/Documents) format.* ) Our simple XML
 format looks akin to the following:
 
 ```xml
@@ -58,9 +58,10 @@ format looks akin to the following:
 </seismic_event>
 ```
 
-At the end of this tutorial, SeisHub will be able to store events in the
-predefined format, validate them and reject files that deviate from the format
-and we will implement a custom mapper to view the events on a map.
+At the end of this tutorial, you will be able to store events in the predefined
+format, validate them and reject files that deviate from the format.
+Furthermore you will be able to transform the data on the fly to different
+formats and query the data with a web based interface.
 
 
 ### Let's get started
@@ -69,47 +70,48 @@ The first step is to clone this repository. This is already a fully functional
 plug-in but it does not really do much.
 
 ```bash
-$ git clone https://github.com/krischer/seishub.plugins.template
+$ git clone https://github.com/krischer/seishub.plugins.template_tutorial
 ```
 
-### The Plugin Structure
+### The Plug-in Structure
 
 The current directory structure along with some additional information is shown
-in the following. The basic structure must not be changed. This is due to the
+in the next block. The basic structure must not be changed. This is due to the
 way Python modules work. The `__init__.py` files are also necessary so don't
 delete them.
 
 ```
-seishub.plugins.template        <- Rename this folder to "seishub.plugins.simpleEvents"
+seishub.plugins.template_tutorial <- Rename this folder to "seishub.plugins.simpleEvents"
 ├── README.md
 ├── seishub
 │   ├── __init__.py
 │   └── plugins
 │       ├── __init__.py
-│       └── template            <- Rename this folder to "simpleEvents"
+│       └── template_tutorial     <- Rename this folder to "simpleEvents"
 │           ├── __init__.py
-│           ├── LICENSE.txt     <- Make sure the license suits your purpose.
-│           └── package.py      <- Currently the only file of the actual plugin.
-└── setup.py                    <- Installation script
+│           ├── LICENSE.txt       <- Make sure the license suits your purpose.
+│           └── package.py        <- Currently the only file of the actual plugin.
+└── setup.py                      <- Installation script
 ```
 
-Right now the plug-in is called `seishub.plugins.template` which is of course
-not a very good name. Let's start by renaming the folder to
-`seishub.plugins.simpleEvents`. Also rename the `seishub/plugins/template`
-folder to `seishub/plugins/simpleEvents`.
+Right now the plug-in is called `seishub.plugins.template_tutorial` which is of
+course not a very good name. Let's start by renaming the folder to
+`seishub.plugins.simpleEvents`. Also rename the
+`seishub/plugins/template_tutorial` folder to `seishub/plugins/simpleEvents`.
 
 
 ### Changes to the installation script
 
-Python modules are installed with the help of `setup.py` file. The `setup.py`
-file in this module is commented and should be self-explanatory. Change things
-as you see fit. It is only necessary to change all occurrences of
-`seishub.plugins.template` to `seishub.plugins.simpleEvents`.
+Python modules are installed with the help of the `setup.py` file. The
+`setup.py` file in this module is commented and should be self-explanatory.
+Change things as you see fit. The only necessary change is to swap all
+occurrences of `seishub.plugins.template_tutorial` with
+`seishub.plugins.simpleEvents`.
 
 
 ### Add resources
 
-The actual resource of the plug-in are defined in
+The actual resources of the plug-in are defined in
 `seishub/plugins/simpleEvents/package.py`. Two classes are already defined in
 the file:
 
@@ -186,7 +188,7 @@ Now all events will be available under
 some events.
 
 
-### Testing the plugin
+### Testing the Plug-in
 
 #### Installation
 
@@ -230,7 +232,7 @@ Assuming you did not change any of the default settings you should be able to
 navigate to `http://localhost:8080/manage` in your web browser. The default
 login is `admin:admin`. This opens the admin panel of the SeisHub instance.
 
-By default the plugin will not be activated. So click on "Plug-ins" on the left
+By default the plug-in will not be activated. So click on "Plug-ins" on the left
 hand side. If the `simpleEvents` plug-in does not show up, something went
 wrong. Check the mark next to `seishub.plugins.simpleEvents.package` and press
 `Save`. The plug-in should now be fully operational. While at it you might also
@@ -661,8 +663,8 @@ want to code something more solid but it serves to illustrate a point).
 #### Where are we at?
 
 This concludes the first basic tutorial of how to write a simple SeisHub
-plugin. So with just a few lines of code you can store your XML data in the
+plug-in. So with just a few lines of code you can store your XML data in the
 database, make sure only valid data is stored, transform it on the fly to
 other formats and have a web based interface for querying your data in a
 meaningful way. This should provide you with a head start to develop your
-own SeisHub plugin tailored to your particular problem.
+own SeisHub plug-in tailored to your particular problem.
