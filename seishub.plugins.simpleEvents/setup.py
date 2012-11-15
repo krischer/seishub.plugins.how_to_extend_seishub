@@ -7,11 +7,11 @@ from setuptools import find_packages, setup
 
 setup(
     # The name of the plugins. Need to be seishub.plugins.PLUGIN_NAME.
-    name="seishub.plugins.template",
+    name="seishub.plugins.simpleEvents",
     # The version number of the plugin.
     version="0.0.0",
     # The description of the plugin.
-    description="Template for SeisHub plug-ins.",
+    description="Template to derive plugins from.",
     # Your name.
     author="Author Name",
     # Your email.
@@ -30,7 +30,7 @@ setup(
     # You need to define entry points so that SeisHub can find the plugin.
     # Usually something like this is fine.
     entry_points={"seishub.plugins": [
-     "seishub.plugins.template = seishub.plugins.template",
+     "seishub.plugins.simpleEvents = seishub.plugins.simpleEvents",
      ]
     },
 )

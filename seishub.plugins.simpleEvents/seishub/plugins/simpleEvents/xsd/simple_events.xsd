@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema">
+    <element name="seismic_event">
+        <complexType>
+            <choice>
+                <element name="latitude" maxOccurs="1" minOccurs="1">
+                    <simpleType>
+                        <restriction base="float">
+                            <maxInclusive value="90.0"></maxInclusive>
+                            <minInclusive value="-90.0"></minInclusive>
+                        </restriction>
+                    </simpleType>
+                </element>
+                <element name="longitude" maxOccurs="3" minOccurs="0">
+                    <simpleType>
+                        <restriction base="float">
+                            <minInclusive value="-180.0"></minInclusive>
+                            <maxInclusive value="180.0"></maxInclusive>
+                        </restriction>
+                    </simpleType>
+                </element>
+                <element name="depth_in_km" maxOccurs="1" minOccurs="1">
+                    <simpleType>
+                        <restriction base="float">
+                            <minInclusive value="-10.0"></minInclusive>
+                            <maxInclusive value="2000.0"></maxInclusive>
+                        </restriction>
+                    </simpleType>
+                </element>
+                <element name="time" type="dateTime" maxOccurs="1"
+                    minOccurs="1">
+                </element>
+                <element name="magnitude" maxOccurs="1" minOccurs="1">
+                    <simpleType>
+                        <restriction base="float">
+                            <minInclusive value="-10.0"></minInclusive>
+                            <maxInclusive value="11.0"></maxInclusive>
+                        </restriction>
+                    </simpleType>
+                </element>
+            </choice>
+        </complexType>
+    </element>
+</schema>
