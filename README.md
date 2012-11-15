@@ -275,7 +275,7 @@ The file can be downloaded via HTTP `GET`, e.g.
 $ curl -u admin:admin -X GET http://localhost:8080/xml/simpleEvents/event/test.xml | cat
 ```
 
-[Direct download link](http://localhost:8080/xml/simpleEvents/event/test.xml), assuming you are following along. 
+[Direct download link](http://localhost:8080/xml/simpleEvents/event/test.xml), assuming you are following along.
 
 
 ### Making it useful
@@ -684,3 +684,7 @@ database, make sure only valid data is stored, transform it on the fly to
 other formats and have a web based interface for querying your data in a
 meaningful way. This should provide you with a head start to develop your
 own SeisHub plug-in tailored to your particular problem.
+
+The final result of the tutorial is stored in the
+[*tutorial_result*](https://github.com/krischer/seishub.plugins.how_to_extend_seishub/tree/tutorial_result)
+branch of this repository.
