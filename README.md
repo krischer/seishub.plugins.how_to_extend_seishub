@@ -1,4 +1,4 @@
-# Template for new SeisHub Plug-ins
+# SeisHub Plug-in Tutorial and Template
 
 This repository contains a very simple but working SeisHub plug-in intended as a
 template for new SeisHub plug-ins. It is also a means of documenting how to
@@ -85,7 +85,7 @@ The first step is to clone this repository. This is already a fully functional
 plug-in but it does not really do much.
 
 ```bash
-$ git clone https://github.com/krischer/seishub.plugins.template_tutorial
+$ git clone https://github.com/krischer/seishub.plugins.how_to_extend_seishub
 ```
 
 ### The Plug-in Structure
@@ -96,23 +96,23 @@ way Python modules work. The `__init__.py` files are also necessary so don't
 delete them.
 
 ```
-seishub.plugins.template_tutorial     <- Rename this folder to "seishub.plugins.simpleEvents"
+seishub.plugins.template     <- Rename this folder to "seishub.plugins.simpleEvents"
 ├── README.md
 ├── seishub
 │   ├── __init__.py
 │   └── plugins
 │       ├── __init__.py
-│       └── template_tutorial         <- Rename this folder to "simpleEvents"
+│       └── template         <- Rename this folder to "simpleEvents"
 │           ├── __init__.py
 │           ├── LICENSE.txt           <- Make sure the license suits your purpose.
 │           └── package.py            <- Currently the only file of the actual plugin.
 └── setup.py                          <- Installation script
 ```
 
-Right now the plug-in is called `seishub.plugins.template_tutorial` which is of
+Right now the plug-in is called `seishub.plugins.template` which is of
 course not a very good name. Let's start by renaming the folder to
 `seishub.plugins.simpleEvents`. Also rename the
-`seishub/plugins/template_tutorial` folder to `seishub/plugins/simpleEvents`.
+`seishub/plugins/template` folder to `seishub/plugins/simpleEvents`.
 
 
 ### Changes to the installation script
@@ -120,7 +120,7 @@ course not a very good name. Let's start by renaming the folder to
 Python modules are installed with the help of the `setup.py` file. The
 `setup.py` file in this module is commented and should be self-explanatory.
 Change things as you see fit. The only necessary change is to swap all
-occurrences of `seishub.plugins.template_tutorial` with
+occurrences of `seishub.plugins.template` with
 `seishub.plugins.simpleEvents`.
 
 
