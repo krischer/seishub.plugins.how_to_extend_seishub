@@ -43,11 +43,11 @@ time series in a custom format, ...
  * **Package:** A component to structure stored files into categories. A
      SeisHub plug-in can define one or more packages. Every package can store
      resources of one or more different resource types.
- * **Document:** An actual XML document.
- * **Resource:** A logical XML document with an associated resource type. One
-     resource can have multiple revisions, each a seperate document.
  * **Resource Type:** Every resource needs to have a type, called a resource
      type.
+ * **Resource:** A logical XML document with an associated resource type. One
+     resource can have multiple revisions, each a seperate document.
+ * **Document:** An actual XML document.
  * **Mapper:** A mapper (in a SeisHub plug-in) is a Python function that is
      called everytime a specified URL is requested. Enables completely
      customized SeisHub behaviour.
@@ -159,7 +159,7 @@ We want to have a package dealing with a simple event specification so change
 the `TemplateComponent` class to
 
 ```python
-class SimpleEventsComponent(Component):
+class SimpleEventsPackage(Component):
     """
     Package dealing with a simple event format.
     """
@@ -188,7 +188,7 @@ In our example we want to have a event resource so go ahead and change the
 **SomeTemplateResourceType** class so it looks akin to the following:
 
 ```python
-class EventResource(Component):
+class EventResourceType(Component):
     """
     Simple event resource type.
     """
@@ -276,6 +276,8 @@ The file can be downloaded via HTTP `GET`, e.g.
 $ curl -u admin:admin -X GET http://localhost:8080/xml/simpleEvents/event/test.xml | cat
 ```
 
+Direct download link, assuming you are following along: http://localhost:8080/xml/simpleEvents/event/test.xml
+
 
 ### Making it useful
 
@@ -352,10 +354,10 @@ Create a file called `simple_events.xsd`, paste the schema definition and place
 it in a `xsd` subfolder in the directory where the `package.py` resides. To
 validate all uploaded files with a schema, a scheme needs to be registered for
 the given resource type. This is done with the `registerSchema()` function. Add
-it to the `EventResource` class definition:
+it to the `EventResourceType` class definition:
 
 ```python
-class EventResource(Component):
+class EventResourceType(Component):
     """
     Simple event resource type.
     """
@@ -425,7 +427,7 @@ Creating XSLT stylesheets is again fairly involved. A good editor, with a 30
 day free trial period and academic licences available, is
 [oXygen](http://www.oxygenxml.com/).
 
-Copy the following stylesheet to a file called `simple_events.xsl` in a newly
+Copy the following stylesheet to a file called `simple_events.xslt` in a newly
 created `xslt` subdirectory in the plug-in source code directory.
 
 ```xml
@@ -450,10 +452,10 @@ created `xslt` subdirectory in the plug-in source code directory.
 ```
 
 Registering the stylesheet happens with the `registerStylesheet()` function.
-Add it to the `EventResource` class definition so it looks like this:
+Add it to the `EventResourceType` class definition so it looks like this:
 
 ```python
-class EventResource(Component):
+class EventResourceType(Component):
     """
     Simple event resource type.
     """
@@ -463,7 +465,7 @@ class EventResource(Component):
     resourcetype_id = "event"
     # Use the get_path() helper function to avoid any path issues.
     registerSchema(get_path("xsd", "simple_events.xsd"), "XMLSchema")
-    registerStylesheet(get_path("xslt", "simple_events.xsl"), "kml")
+    registerStylesheet(get_path("xslt", "simple_events.xslt"), "kml")
 ```
 
 After restarting the SeisHub server, any previously uploaded resource will be
@@ -474,6 +476,8 @@ can be openend with Google Earth.
 $ curl -u admin:admin -X GET "http://localhost:8080/xml/simpleEvents/event/test.xml?format=kml" -o test.kml
 $ googleearth `realpath test.kml`
 ```
+
+Direct download link, assuming you are following along: http://localhost:8080/xml/simpleEvents/event/test.xml?format=kml
 
 XSLT's are particularly well suited to convert XML documents to human-readable
 X(HTML) webpages. In the context of SeisHub they are often used to present
@@ -505,10 +509,10 @@ An [XPath](http://en.wikipedia.org/wiki/Xpath) is, in its simplest form, like a
 filepath for an XML document and quite intuitive to use.
 
 The indices also have to be registered in the class definition, so our
-`EventResource` is now:
+`EventResourceType` is now:
 
 ```python
-class EventResource(Component):
+class EventResourceType(Component):
     """
     Simple event resource type.
     """
@@ -518,7 +522,7 @@ class EventResource(Component):
     resourcetype_id = "event"
     # Use the get_path() helper function to avoid any path issues.
     registerSchema(get_path("xsd", "simple_events.xsd"), "XMLSchema")
-    registerStylesheet(get_path("xslt", "simple_events.xsl"), "kml")
+    registerStylesheet(get_path("xslt", "simple_events.xslt"), "kml")
     # Register three indices.
     registerIndex("latitude", "/seismic_event/latitude", "float")
     registerIndex("longitude", "/seismic_event/longitude", "float")
