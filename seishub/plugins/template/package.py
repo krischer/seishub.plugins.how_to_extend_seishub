@@ -30,7 +30,7 @@ def get_path(*args):
     return os.path.join(this_dir, *args)
 
 
-class TemplateComponent(Component):
+class TemplatePackage(Component):
     """
     Template package for SeisHub.
     """
