@@ -5,7 +5,6 @@ template for new SeisHub plug-ins. It is also a means of documenting how to
 extend SeisHub with your own functionality.
 
 ## Tutorial for a new SeisHub Plug-in
-
 This short tutorial will walk you through the steps of creating a simple
 SeisHub plug-in. In the course of the tutorial we will develop a simple plug-in
 to store seismic events.
@@ -276,7 +275,7 @@ The file can be downloaded via HTTP `GET`, e.g.
 $ curl -u admin:admin -X GET http://localhost:8080/xml/simpleEvents/event/test.xml | cat
 ```
 
-Direct download link, assuming you are following along: http://localhost:8080/xml/simpleEvents/event/test.xml
+[Direct download link](http://localhost:8080/xml/simpleEvents/event/test.xml), assuming you are following along. 
 
 
 ### Making it useful
@@ -476,8 +475,6 @@ can be openend with Google Earth.
 $ curl -u admin:admin -X GET "http://localhost:8080/xml/simpleEvents/event/test.xml?format=kml" -o test.kml
 $ googleearth `realpath test.kml`
 ```
-
-Direct download link, assuming you are following along: http://localhost:8080/xml/simpleEvents/event/test.xml?format=kml
 
 XSLT's are particularly well suited to convert XML documents to human-readable
 X(HTML) webpages. In the context of SeisHub they are often used to present
