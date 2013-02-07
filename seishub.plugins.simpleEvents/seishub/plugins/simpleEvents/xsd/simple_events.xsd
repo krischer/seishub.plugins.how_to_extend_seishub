@@ -2,7 +2,7 @@
 <schema xmlns="http://www.w3.org/2001/XMLSchema">
     <element name="seismic_event">
         <complexType>
-            <choice>
+            <sequence>
                 <element name="latitude" maxOccurs="1" minOccurs="1">
                     <simpleType>
                         <restriction base="float">
@@ -38,7 +38,7 @@
                         </restriction>
                     </simpleType>
                 </element>
-            </choice>
+            </sequence>
         </complexType>
     </element>
 </schema>
