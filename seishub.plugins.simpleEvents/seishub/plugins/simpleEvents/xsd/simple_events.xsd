@@ -11,7 +11,7 @@
                         </restriction>
                     </simpleType>
                 </element>
-                <element name="longitude" maxOccurs="3" minOccurs="0">
+                <element name="longitude" maxOccurs="1" minOccurs="1">
                     <simpleType>
                         <restriction base="float">
                             <minInclusive value="-180.0"></minInclusive>
