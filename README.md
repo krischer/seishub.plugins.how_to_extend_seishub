@@ -4,6 +4,16 @@ This repository contains a very simple but working SeisHub plug-in intended as a
 template for new SeisHub plug-ins. It is also a means of documenting how to
 extend SeisHub with your own functionality.
 
+[SeisHub](http://github.com/barsch/seishub.core) is am XML database meaning
+that it, as a fundamental unit, stores XML documents. For you this means that
+your data has to be available in XML. This is feasible in most cases. Later on
+we will also learn how to deal with binary data, e.g.  images, large binary
+time series in a custom format, ...
+
+Please familiarize yourself with
+[SeisHub](http://github.com/barsch/seishub.core) before proceeding with this
+tutorial.
+
 ## Tutorial for a new SeisHub Plug-in
 This short tutorial will walk you through the steps of creating a simple
 SeisHub plug-in. In the course of the tutorial we will develop a simple plug-in
@@ -28,14 +38,6 @@ are required before you can start.
   [relational databases](http://en.wikipedia.org/wiki/Relational\_database)
   might prove useful.
 
-### Things to Know About SeisHub
-
-
-[SeisHub](http://github.com/barsch/seishub.core) is a XML database meaning
-that it, as a fundamental unit, stores XML documents. For you this means that
-your data has to be available in XML. This is feasible in most cases. Later on
-we will also learn how to deal with binary data, e.g.  images, large binary
-time series in a custom format, ...
 
 #### Terminology
 
@@ -51,7 +53,7 @@ time series in a custom format, ...
      called everytime a specified URL is requested. Enables completely
      customized SeisHub behaviour.
 
-### Designing the Plug-in
+### Goal and Purpose of the Plug-in
 
 Let's assume you have a large collection of seismic events and want to store
 them in SeisHub. First we need to define the structure of the XML files that we
@@ -87,6 +89,9 @@ plug-in but it does not really do much.
 $ git clone https://github.com/krischer/seishub.plugins.how_to_extend_seishub
 ```
 
+Now there is a SeisHub plug-in residing in the
+`seishub.plugins.how_to_extend_seishub` subfolder.
+
 ### The Plug-in Structure
 
 The current directory structure along with some additional information is shown
@@ -108,28 +113,32 @@ seishub.plugins.template     <- Rename this folder to "seishub.plugins.simpleEve
 └── setup.py                          <- Installation script
 ```
 
-Right now the plug-in is called `seishub.plugins.template` which is of
-course not a very good name. Let's start by renaming the folder to
-`seishub.plugins.simpleEvents`. Also rename the
-`seishub/plugins/template` folder to `seishub/plugins/simpleEvents`.
+Right now the plug-in is called `seishub.plugins.template` which is of course
+not a very good name. Let's start by renaming the top-folder to
+`seishub.plugins.simpleEvents`. Also rename the `seishub/plugins/template`
+folder to `seishub/plugins/simpleEvents`.
 
 
 ### Changes to the installation script
 
 Python modules are installed with the help of the `setup.py` file. The
 `setup.py` file in this module is commented and should be self-explanatory.
-Change things as you see fit. The only necessary change is to swap all
-occurrences of `seishub.plugins.template` with
-`seishub.plugins.simpleEvents`.
+Change things as you see fit. The only necessary change is to swap **all**
+occurrences of `seishub.plugins.template` with `seishub.plugins.simpleEvents`.
 
 
-### Add resources
+### Defining the Data Structure
+
+SeisHub organized data in **packages** and **resource types**. Packages are
+like folders, each able to have several different resource types. Everything
+you want to upload has to have a defined resource type. This section teaches
+you how to define packages and resource types.
 
 The actual resources of the plug-in are defined in
 `seishub/plugins/simpleEvents/package.py`. Two classes are already defined in
 the file:
 
-* `TemplateComponent`
+* `TemplatePackage`
 * `SomeTemplateResourceType`
 
 both inheriting from `seishub.core.core.Component`. Both also implement an
@@ -137,7 +146,8 @@ interface. Interfaces in SeisHub are
 [Zope interfaces](http://wiki.zope.org/Interfaces/FrontPage). If you implement
 an interface you give a promise that the class has certain attributes and
 methods defined in the interface specification. The interface are defined in
-`seishub.core.packages.interface`.
+`seishub.core.packages.interface`. All packages have to implement the
+`IPackage` interface and all resource types the `IResourceType` interface.
 
 #### Defining a new package
 
@@ -170,7 +180,7 @@ class SimpleEventsPackage(Component):
 This has the consequence that all resources of this package will be available
 under *SEISHUB_URL/xml/simpleEvents/RESOURCE_TYPE*.
 
-#### Defining a new resource.
+#### Defining a new resource type
 
 A package can have an unlimited number of different resource types. We will now
 define a new resource type `event` that is designed to store event in the
