@@ -123,7 +123,7 @@ folder to `seishub/plugins/simpleEvents`.
 
 Python modules are installed with the help of the `setup.py` file. The
 `setup.py` file in this module is commented and should be self-explanatory.
-Change things as you see fit. The only necessary change is to swap **all**
+Change things as you see fit. The only necessary change is to swap **ALL**
 occurrences of `seishub.plugins.template` with `seishub.plugins.simpleEvents`.
 
 
